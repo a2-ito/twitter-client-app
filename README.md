@@ -20,9 +20,9 @@ Todo: ここに全体構成図を挟む
 - [x] Backend: Twitterログイン(Authorization Code Flow)：認可エンドポイントへのリダイレクト～トークンの取得
 - [x] Backend: シークレットを環境変数に設定
 - [x] Backend: コード構成見直し(レイヤード構成)
-- [ ] Backend: Authorization Code Flow 確認：stateの検証(stateユニーク化)
+- [x] Backend: Authorization Code Flow 確認：token を使った Twitter API 実行確認 https://api.twitter.com/2/users/me
 - [ ] openapi 定義作成
-- [ ] Backend: Authorization Code Flow 確認：IDトークンの検証
+- [ ] Backend: Authorization Code Flow 確認：stateの検証(stateユニーク化)
 - [ ] Backend: Authorization Code Flow 確認：ツイート取得
 - [ ] Backend: Authorization Code Flow 確認：ツイートする
 - [ ] Backend: Authorization Code Flow 確認：他ユーザをフォローする

@@ -17,6 +17,7 @@ type appUseCase struct {
 
 var conf oauth2.Config
 var codeVerifier string
+var token *oauth2.Token
 
 func NewAppUseCase() AppUseCase {
   return &appUseCase{}
