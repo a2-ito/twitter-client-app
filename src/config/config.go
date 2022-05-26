@@ -2,10 +2,28 @@ package infrastructure
 
 import (
   "os"
+  "fmt"
   "golang.org/x/oauth2"
 )
 
 func LoadConfig() (conf oauth2.Config) {
+
+  _, result := os.LookupEnv("CLIENT_ID")
+  if (result == false) {
+    fmt.Println("Not found: CLIENT_ID")
+    // Todo: 5xx を返却
+  }
+  _, result = os.LookupEnv("CLIENT_SECRET")
+  if (result == false) {
+    fmt.Println("Not found: CLIENT_SECRET")
+    // Todo: 5xx を返却
+  }
+  _, result = os.LookupEnv("REDIRECT_URL")
+  if (result == false) {
+    fmt.Println("Not found: REDIRECT_URL")
+    // Todo: 5xx を返却
+  }
+
   conf = oauth2.Config{
     ClientID:     os.Getenv("CLIENT_ID"),
     ClientSecret: os.Getenv("CLIENT_SECRET"),

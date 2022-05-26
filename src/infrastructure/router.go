@@ -43,18 +43,10 @@ func generateBase64Encoded32byteRandomString() string {
 }
 
 func Run() {
-    //ctx := context.Background()
-    // Echo instance
     e := echo.New()
-    /*
-    i := interactor.NewInteractor()
-    h := i.NewUserHandler()
-    */
-
-    // conf
-    //conf := LoadConfig()
 
     // Env
+    // .env ファイルが存在する場合はそこから読み込み、存在する場合は、環境変数を参照する
     err := godotenv.Load(".env")
     if err != nil {
       fmt.Println(err)
@@ -63,50 +55,13 @@ func Run() {
     handler := handler.NewAppHandler()
     handler.NewAppUseCase()
 
-    /*
-    codeVerifier := generateBase64Encoded32byteRandomString()
-    h := sha256.New()
-    h.Write([]byte(codeVerifier))
-    hashed := h.Sum(nil)
-    codeChallenge := base64.URLEncoding.WithPadding(base64.NoPadding).EncodeToString(hashed)
-
-    authURL := conf.AuthCodeURL(
-                "FIXME",
-                oauth2.SetAuthURLParam("code_challenge", codeChallenge),
-                oauth2.SetAuthURLParam("code_challenge_method", "S256"))
-    */
-
     // Middleware
     e.Use(middleware.Logger())
     e.Use(middleware.Recover())
 
     e.GET("/", handler.Hello)
-    //e.GET("/auth", auth)
     e.GET("/login", handler.Login)
-    /*
-    e.GET("/login", func(c echo.Context) error {
-      return c.Redirect(http.StatusMovedPermanently, authURL)
-    })
-    */
-
     e.GET("/callback", handler.Callback)
-    /*
-    e.GET("/callback", func(c echo.Context) error {
-      code := c.QueryParam("code")
-      fmt.Println("code: ", c.QueryParam("code"))
-      fmt.Println("codeVerifier: ", codeVerifier)
-      token, err := conf.Exchange(
-                      ctx,
-                      code,
-                      oauth2.SetAuthURLParam("code_verifier", codeVerifier))
-      if err != nil {
-        fmt.Println(err)
-        //log.Fatal(err)
-      }
-      fmt.Println("token: ", token)
-      return c.String(http.StatusOK, "callback!")
-    })
-    */
 
     // Start server
     e.Logger.Fatal(e.Start(":8080"))
