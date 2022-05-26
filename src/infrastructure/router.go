@@ -5,20 +5,23 @@ import (
   "io"
   "fmt"
   "crypto/rand"
-  "crypto/sha256"
+  //"crypto/sha256"
   "encoding/base64"
-  "context"
+  //"context"
 
   "github.com/joho/godotenv"
   "github.com/labstack/echo/v4"
   "github.com/labstack/echo/v4/middleware"
-  "golang.org/x/oauth2"
+  //"golang.org/x/oauth2"
+  handler "src/interfaces"
 )
 
+/*
 func hello(c echo.Context) error {
   fmt.Println("id ", c.QueryParam("id"))
   return c.String(http.StatusOK, "Hello, World!")
 }
+*/
 
 func auth(c echo.Context) error {
   url := "http://localhost:1323/auth/hoge"
@@ -40,7 +43,7 @@ func generateBase64Encoded32byteRandomString() string {
 }
 
 func Run() {
-    ctx := context.Background()
+    //ctx := context.Background()
     // Echo instance
     e := echo.New()
     /*
@@ -48,18 +51,20 @@ func Run() {
     h := i.NewUserHandler()
     */
 
+    // conf
+    //conf := LoadConfig()
+
     // Env
     err := godotenv.Load(".env")
     if err != nil {
       fmt.Println(err)
     }
 
-    // Config
-    conf := LoadConfig()
+    handler := handler.NewAppHandler()
+    handler.NewAppUseCase()
 
+    /*
     codeVerifier := generateBase64Encoded32byteRandomString()
-    //codeVerifier := "dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk"
-    //codeChallenge := "E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM"
     h := sha256.New()
     h.Write([]byte(codeVerifier))
     hashed := h.Sum(nil)
@@ -69,18 +74,23 @@ func Run() {
                 "FIXME",
                 oauth2.SetAuthURLParam("code_challenge", codeChallenge),
                 oauth2.SetAuthURLParam("code_challenge_method", "S256"))
+    */
 
     // Middleware
     e.Use(middleware.Logger())
     e.Use(middleware.Recover())
 
-    e.GET("/", hello)
+    e.GET("/", handler.Hello)
     //e.GET("/auth", auth)
+    e.GET("/login", handler.Login)
+    /*
     e.GET("/login", func(c echo.Context) error {
       return c.Redirect(http.StatusMovedPermanently, authURL)
     })
+    */
 
-    //e.GET("/callback", callbackHandler)
+    e.GET("/callback", handler.Callback)
+    /*
     e.GET("/callback", func(c echo.Context) error {
       code := c.QueryParam("code")
       fmt.Println("code: ", c.QueryParam("code"))
@@ -96,6 +106,7 @@ func Run() {
       fmt.Println("token: ", token)
       return c.String(http.StatusOK, "callback!")
     })
+    */
 
     // Start server
     e.Logger.Fatal(e.Start(":8080"))

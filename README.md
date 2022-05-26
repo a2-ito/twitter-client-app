@@ -19,8 +19,9 @@ Todo: ここに全体構成図を挟む
 - [x] Twitter App 用のクライアントID、シークレットを取得
 - [x] Backend: Twitterログイン(Authorization Code Flow)：認可エンドポイントへのリダイレクト～トークンの取得
 - [x] Backend: シークレットを環境変数に設定
+- [x] Backend: コード構成見直し(レイヤード構成)
+- [ ] Backend: Authorization Code Flow 確認：stateの検証(stateユニーク化)
 - [ ] openapi 定義作成
-- [ ] Backend: Authorization Code Flow 確認：stateの検証
 - [ ] Backend: Authorization Code Flow 確認：IDトークンの検証
 - [ ] Backend: Authorization Code Flow 確認：ツイート取得
 - [ ] Backend: Authorization Code Flow 確認：ツイートする
@@ -34,7 +35,7 @@ Todo: ここに全体構成図を挟む
 - [ ] Frontend: ツイート機能実装
 - [ ] Frontend: フォロー機能実装
 - [ ] Frontend: タイムライン参照機能
-- [ ] Makefile: 
+- [ ] Makefile:
 - [ ] デプロイの方法
 
 ## a
