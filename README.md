@@ -28,11 +28,10 @@ Todo: ここに全体構成図を挟む
 - [x] Backend: .envだけでなく、環境変数に対応する
 - [x] Backend: stateの検証(stateユニーク化)
 - [x] Backend: タイムラインを参照する `/timelines`
-- [ ] Backend: ログイン済みユーザの対応
+- [x] Backend: ツイートする `/tweet`
 - [ ] Backend: 複数ユーザ同時接続対応(トークンストア実装)
+- [ ] Backend: ログイン済みユーザの対応(再ログインを促す)
 - [ ] Backend: openapi 定義作成
-- [ ] Backend: Authorization Code Flow 確認：ツイート取得
-- [ ] Backend: Authorization Code Flow 確認：ツイートする
 - [ ] Backend: Authorization Code Flow 確認：他ユーザをフォローする
 - [ ] Backend: Authorization Code Flow 確認：チャレンジコードをブラウザ・セッションごとに変える
 - [ ] Backend: エラーハンドリング
@@ -67,6 +66,7 @@ Todo: ここに全体構成図を挟む
 - Back-end
   - 任意のユーザ利用を想定し、Authorization Code Flow で認証・認可を行う。
   - 短期間&バックエンドの機能性はほぼないため、レイヤードアーキテクチャにせずシンプルに実装する。
+  - 複数ユーザのセッション管理に対応
 - Front-end
   - aaa
 - Enviroment

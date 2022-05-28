@@ -57,6 +57,7 @@ func Run() {
     e.GET("/login", handler.Login)
     e.GET("/callback", handler.Callback)
     e.GET("/timelines", handler.Timelines)
+    e.GET("/tweet", handler.Tweet)
 
     // Start server
     e.Logger.Fatal(e.Start(":8080"))

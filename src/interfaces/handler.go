@@ -15,10 +15,16 @@ type AppHandler interface {
   Login(c echo.Context) error
   Callback(c echo.Context) error
   Timelines(c echo.Context) error
+  Tweet(c echo.Context) error
 }
 
 type appHandler struct {
   AppUseCase usecases.AppUseCase
+}
+
+// Tweet 用 struct
+type Post struct {
+  Text string `json:"text"`
 }
 
 func NewAppHandler() AppHandler {
@@ -81,5 +87,21 @@ func (h *appHandler) Timelines(c echo.Context) error {
 
   res := h.AppUseCase.Timelines(ctx, id)
   return c.JSON(http.StatusOK, res)
+}
+
+func (h *appHandler) Tweet(c echo.Context) error {
+  fmt.Println("appHandler Tweet")
+
+  var p Post
+  if err := c.Bind(&p); err != nil {
+    fmt.Println(err)
+  }
+
+  ctx := c.Request().Context()
+  if ctx == nil {
+    ctx = context.Background()
+  }
+  h.AppUseCase.Tweet(ctx, p.Text)
+  return c.String(http.StatusOK, "tweet!")
 }
 
