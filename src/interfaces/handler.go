@@ -14,6 +14,7 @@ type AppHandler interface {
   Hello(c echo.Context) error
   Login(c echo.Context) error
   Callback(c echo.Context) error
+  Timelines(c echo.Context) error
 }
 
 type appHandler struct {
@@ -52,8 +53,6 @@ func (h *appHandler) Login(c echo.Context) error {
 }
 
 func (h *appHandler) Callback(c echo.Context) error {
-  fmt.Println("appHandler Login")
-
   code := c.QueryParam("code")
   fmt.Println("code: ", c.QueryParam("code"))
 
@@ -65,7 +64,22 @@ func (h *appHandler) Callback(c echo.Context) error {
     ctx = context.Background()
   }
 
-  h.AppUseCase.Callback(ctx, code, queryState)
-  return c.String(http.StatusOK, "callback!")
+  res := h.AppUseCase.Callback(ctx, code, queryState)
+  return c.JSON(http.StatusOK, res)
+}
+
+func (h *appHandler) Timelines(c echo.Context) error {
+  fmt.Println("appHandler Timelines")
+
+  id := c.QueryParam("id")
+  fmt.Println("id: ", c.QueryParam("id"))
+
+  ctx := c.Request().Context()
+  if ctx == nil {
+    ctx = context.Background()
+  }
+
+  res := h.AppUseCase.Timelines(ctx, id)
+  return c.JSON(http.StatusOK, res)
 }
 

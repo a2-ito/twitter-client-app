@@ -9,8 +9,8 @@ import (
 type AppUseCase interface {
   Hello(ctx context.Context) error
   Login(ctx context.Context) string
-  Callback(ctx context.Context, code string, queryState string) error
-  //Timelines(ctx context.Context) error
+  Callback(ctx context.Context, code string, queryState string) (result Me)
+  Timelines(ctx context.Context, id string) (result Timelines)
 }
 
 type appUseCase struct {

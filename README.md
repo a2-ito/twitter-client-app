@@ -27,7 +27,9 @@ Todo: ここに全体構成図を挟む
 - [x] Backend: Authorization Code Flow 確認：token を使った Twitter API 実行確認 https://api.twitter.com/2/users/me
 - [x] Backend: .envだけでなく、環境変数に対応する
 - [x] Backend: stateの検証(stateユニーク化)
-- [ ] Backend: タイムラインを参照する `/timelines`
+- [x] Backend: タイムラインを参照する `/timelines`
+- [ ] Backend: ログイン済みユーザの対応
+- [ ] Backend: 複数ユーザ同時接続対応(トークンストア実装)
 - [ ] Backend: openapi 定義作成
 - [ ] Backend: Authorization Code Flow 確認：ツイート取得
 - [ ] Backend: Authorization Code Flow 確認：ツイートする

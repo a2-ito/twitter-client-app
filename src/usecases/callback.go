@@ -4,11 +4,22 @@ import (
   "fmt"
   "context"
   "io"
-  "os"
+  //"os"
   "golang.org/x/oauth2"
+  "encoding/json"
 )
 
-func (u *appUseCase) Callback(ctx context.Context, code string, queryState string) (err error) {
+type Me struct {
+    Data User
+}
+
+type User struct {
+    Id string
+    Name string
+    Username string
+}
+
+func (u *appUseCase) Callback(ctx context.Context, code string, queryState string) (result Me) {
 
   fmt.Println("usecase Callback")
   if code == "" {
@@ -27,15 +38,16 @@ func (u *appUseCase) Callback(ctx context.Context, code string, queryState strin
     return
   }
 
-  token, err := conf.Exchange(
+  t, err := conf.Exchange(
                   ctx,
                   code,
                   oauth2.SetAuthURLParam("code_verifier", codeVerifier))
-  fmt.Println("token: ", token)
   if err != nil {
     fmt.Println(err)
     //log.Fatal(err)
   }
+  token = t
+  fmt.Println("token: ", token)
 
   oAuthClient := oauth2.NewClient(ctx, oauth2.StaticTokenSource(token))
   res, err := oAuthClient.Get("https://api.twitter.com/2/users/me")
@@ -46,14 +58,19 @@ func (u *appUseCase) Callback(ctx context.Context, code string, queryState strin
   }
 
   defer res.Body.Close()
-  io.Copy(os.Stdout, res.Body)
+  //io.Copy(os.Stdout, res.Body)
 
-  b, err := io.ReadAll(res.Body)
+  body, err := io.ReadAll(res.Body)
   if err != nil {
     fmt.Printf("failed to get me: %v\n", err)
   }
-  fmt.Println("content: ", string(b))
+  fmt.Println(string(body))
+  var me Me
+  if err := json.Unmarshal(body, &me); err != nil {
+    fmt.Printf("failed to get me: %v\n", err)
+  }
+  fmt.Println("content: ", me)
 
-  return nil
+  return me
 
 }

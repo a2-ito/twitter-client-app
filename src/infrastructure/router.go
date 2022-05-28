@@ -28,12 +28,6 @@ func auth(c echo.Context) error {
   return c.Redirect(http.StatusMovedPermanently, url)
 }
 
-func callbackHandler(c echo.Context) error {
-  fmt.Println("state: ", c.QueryParam("state"))
-  fmt.Println("code:  ", c.QueryParam("code"))
-  return c.String(http.StatusOK, "callback!")
-}
-
 func generateBase64Encoded32byteRandomString() string {
   b := make([]byte, 32)
   if _, err := io.ReadFull(rand.Reader, b); err != nil {
@@ -62,6 +56,7 @@ func Run() {
     e.GET("/", handler.Hello)
     e.GET("/login", handler.Login)
     e.GET("/callback", handler.Callback)
+    e.GET("/timelines", handler.Timelines)
 
     // Start server
     e.Logger.Fatal(e.Start(":8080"))
