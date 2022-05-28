@@ -12,6 +12,7 @@ type AppUseCase interface {
   Callback(ctx context.Context, code string, queryState string) (result Me)
   Timelines(ctx context.Context, id string) (result Timelines)
   Tweet(ctx context.Context, tweetTest string) error
+  Follow(ctx context.Context, id string, target_id string) error
 }
 
 type appUseCase struct {

@@ -16,6 +16,7 @@ type AppHandler interface {
   Callback(c echo.Context) error
   Timelines(c echo.Context) error
   Tweet(c echo.Context) error
+  Follow(c echo.Context) error
 }
 
 type appHandler struct {
@@ -25,6 +26,11 @@ type appHandler struct {
 // Tweet 用 struct
 type Post struct {
   Text string `json:"text"`
+}
+
+// Follow API 用 struct
+type FollowingInfo struct {
+  Target_user_id string `json:"target_user_id"`
 }
 
 func NewAppHandler() AppHandler {
@@ -102,6 +108,23 @@ func (h *appHandler) Tweet(c echo.Context) error {
     ctx = context.Background()
   }
   h.AppUseCase.Tweet(ctx, p.Text)
+  return c.String(http.StatusOK, "tweet!")
+}
+
+func (h *appHandler) Follow(c echo.Context) error {
+  fmt.Println("appHandler Follow")
+
+  id := c.QueryParam("id")
+  var f FollowingInfo
+  if err := c.Bind(&f); err != nil {
+    fmt.Println(err)
+  }
+
+  ctx := c.Request().Context()
+  if ctx == nil {
+    ctx = context.Background()
+  }
+  h.AppUseCase.Follow(ctx, id, f.Target_user_id)
   return c.String(http.StatusOK, "tweet!")
 }
 

@@ -9,6 +9,7 @@ Twitter クライアントアプリ。
 2. 他ユーザーをフォローする
 3. タイムラインを見る
 4. 「いいね」を付ける(追加実装)
+5. ツイートを検索する(追加実装)
 
 Todo: ここに全体構成図を挟む
 
@@ -29,6 +30,9 @@ Todo: ここに全体構成図を挟む
 - [x] Backend: stateの検証(stateユニーク化)
 - [x] Backend: タイムラインを参照する `/timelines`
 - [x] Backend: ツイートする `/tweet`
+- [x] Backend: 他のユーザをフォローする `/follow`
+- [ ] Backend: ツイートを検索 `/search`
+- [ ] Backend: いいねをつける `/xxx`
 - [ ] Backend: 複数ユーザ同時接続対応(トークンストア実装)
 - [ ] Backend: ログイン済みユーザの対応(再ログインを促す)
 - [ ] Backend: openapi 定義作成
