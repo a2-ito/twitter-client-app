@@ -9,7 +9,8 @@ import (
 type AppUseCase interface {
   Hello(ctx context.Context) error
   Login(ctx context.Context) string
-  Callback(ctx context.Context, code string) error
+  Callback(ctx context.Context, code string, queryState string) error
+  //Timelines(ctx context.Context) error
 }
 
 type appUseCase struct {
@@ -18,6 +19,7 @@ type appUseCase struct {
 var conf oauth2.Config
 var codeVerifier string
 var token *oauth2.Token
+var state string
 
 func NewAppUseCase() AppUseCase {
   return &appUseCase{}

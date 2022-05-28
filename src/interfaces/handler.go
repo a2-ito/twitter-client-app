@@ -57,12 +57,15 @@ func (h *appHandler) Callback(c echo.Context) error {
   code := c.QueryParam("code")
   fmt.Println("code: ", c.QueryParam("code"))
 
+  queryState := c.QueryParam("state")
+  fmt.Println("queryState: ", queryState)
+
   ctx := c.Request().Context()
   if ctx == nil {
     ctx = context.Background()
   }
 
-  h.AppUseCase.Callback(ctx, code)
+  h.AppUseCase.Callback(ctx, code, queryState)
   return c.String(http.StatusOK, "callback!")
 }
 

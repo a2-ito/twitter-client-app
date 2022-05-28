@@ -8,9 +8,25 @@ import (
   "golang.org/x/oauth2"
 )
 
-func (u *appUseCase) Callback(ctx context.Context, code string) (err error) {
+func (u *appUseCase) Callback(ctx context.Context, code string, queryState string) (err error) {
 
   fmt.Println("usecase Callback")
+  if code == "" {
+    //log.Println("code not found")
+    //w.WriteHeader(http.StatusBadRequest)
+    return
+  }
+  if state == "" {
+    //log.Println("state not found")
+    //w.WriteHeader(http.StatusBadRequest)
+    return
+  }
+  if queryState != state {
+    //log.Println("invalid state")
+    //w.WriteHeader(http.StatusBadRequest)
+    return
+  }
+
   token, err := conf.Exchange(
                   ctx,
                   code,

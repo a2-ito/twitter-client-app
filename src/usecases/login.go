@@ -4,6 +4,7 @@ import (
   "fmt"
   "context"
   "io"
+  "time"
   "crypto/rand"
   "crypto/sha256"
   "encoding/base64"
@@ -27,8 +28,11 @@ func getAuthURL() string {
   hashed := h.Sum(nil)
   codeChallenge := base64.URLEncoding.WithPadding(base64.NoPadding).EncodeToString(hashed)
 
+  // init state
+  state = fmt.Sprintf("st%d", time.Now().UnixNano())
+
   authURL := conf.AuthCodeURL(
-              "FIXME",
+              state,
               oauth2.SetAuthURLParam("code_challenge", codeChallenge),
               oauth2.SetAuthURLParam("code_challenge_method", "S256"))
   return authURL
