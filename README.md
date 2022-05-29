@@ -31,20 +31,24 @@ Todo: ここに全体構成図を挟む
 - [x] Backend: タイムラインを参照する `/timelines`
 - [x] Backend: ツイートする `/tweet`
 - [x] Backend: 他のユーザをフォローする `/follow`
-- [ ] Backend: ツイートを検索 `/search`
-- [ ] Backend: いいねをつける `/xxx`
+- [x] Backend: ツイートを検索 `/search`
+- [ ] Backend: いいねをつける `/likes`
+- [ ] Frontend: 雛形
+- [ ] Frontend: コールバック時の動作
+- [ ] Frontend: ログイン
+- [ ] Backend: Linter
+- [ ] Backend: Formatter
 - [ ] Backend: 複数ユーザ同時接続対応(トークンストア実装)
-- [ ] Backend: ログイン済みユーザの対応(再ログインを促す)
+- [ ] Backend: ログイン済みユーザの対応(再ログインを促す) ⇒おそらくキャッシュの問題
+- [ ] Backend: 流量制御
 - [ ] Backend: openapi 定義作成
 - [ ] Backend: Authorization Code Flow 確認：他ユーザをフォローする
 - [ ] Backend: Authorization Code Flow 確認：チャレンジコードをブラウザ・セッションごとに変える
 - [ ] Backend: エラーハンドリング
 - [ ] Backend: ロギング
-- [ ] Frontend: 雛形・サンプルアプリ作成
 - [ ] Frontend: ツイート機能実装
 - [ ] Frontend: フォロー機能実装
 - [ ] Frontend: タイムライン参照機能
-- [ ] Makefile:
 - [ ] デプロイの方法
 - [ ] 特定のドメイン環境で稼働させる場合の対応手順
 
