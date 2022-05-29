@@ -17,6 +17,8 @@ type AppHandler interface {
   Timelines(c echo.Context) error
   Tweet(c echo.Context) error
   Follow(c echo.Context) error
+  Search(c echo.Context) error
+  Likes(c echo.Context) error
 }
 
 type appHandler struct {
@@ -31,6 +33,11 @@ type Post struct {
 // Follow API 用 struct
 type FollowingInfo struct {
   Target_user_id string `json:"target_user_id"`
+}
+
+// Likes API 用 struct
+type Like struct {
+  Tweet_id string `json:"tweet_id"`
 }
 
 func NewAppHandler() AppHandler {
@@ -64,6 +71,8 @@ func (h *appHandler) Login(c echo.Context) error {
   return c.Redirect(http.StatusMovedPermanently, url)
 }
 
+// Callback
+// フロントエンド"/"へリダイレクト
 func (h *appHandler) Callback(c echo.Context) error {
   code := c.QueryParam("code")
   fmt.Println("code: ", c.QueryParam("code"))
@@ -76,8 +85,9 @@ func (h *appHandler) Callback(c echo.Context) error {
     ctx = context.Background()
   }
 
-  res := h.AppUseCase.Callback(ctx, code, queryState)
-  return c.JSON(http.StatusOK, res)
+  _, url := h.AppUseCase.Callback(ctx, code, queryState)
+  //return c.JSON(http.StatusOK, res)
+  return c.Redirect(http.StatusMovedPermanently, url)
 }
 
 func (h *appHandler) Timelines(c echo.Context) error {
@@ -125,6 +135,36 @@ func (h *appHandler) Follow(c echo.Context) error {
     ctx = context.Background()
   }
   h.AppUseCase.Follow(ctx, id, f.Target_user_id)
-  return c.String(http.StatusOK, "tweet!")
+  return c.String(http.StatusOK, "follow")
+}
+
+func (h *appHandler) Search(c echo.Context) error {
+  fmt.Println("appHandler Search")
+
+  query := c.QueryParam("query")
+
+  ctx := c.Request().Context()
+  if ctx == nil {
+    ctx = context.Background()
+  }
+  res := h.AppUseCase.Search(ctx, query)
+  return c.JSON(http.StatusOK, res)
+}
+
+func (h *appHandler) Likes(c echo.Context) error {
+  fmt.Println("appHandler Likes")
+
+  id := c.QueryParam("id")
+  var l Like
+  if err := c.Bind(&l); err != nil {
+    fmt.Println(err)
+  }
+
+  ctx := c.Request().Context()
+  if ctx == nil {
+    ctx = context.Background()
+  }
+  h.AppUseCase.Likes(ctx, id, l.Tweet_id)
+  return c.String(http.StatusOK, "like!")
 }
 

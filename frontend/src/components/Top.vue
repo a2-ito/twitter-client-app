@@ -1,6 +1,18 @@
 <template>
   <v-container>
     <v-row class="text-center">
+      <div>
+        <p v-if="login">You are already logged in.</p>
+        <p v-else>Not logged in</p>
+      </div>
+      <div>
+        ID: {{ this.id }} Username: {{ this.username }}
+      </div>
+      <div id="app">
+        {{ info }}
+      </div>
+    </v-row>
+    <v-row class="text-center">
       <v-toolbar
         class="mb-2"
         color="primary"
@@ -13,12 +25,21 @@
       </v-toolbar>
     </v-row>
     <v-row>
+      <v-btn
+        color="primary"
+        dark
+        v-on:click="getTimelines"
+      >
+      Update
+      </v-btn>
+    </v-row>
+    <v-row>
     <v-simple-table>
     <template v-slot:default>
       <thead>
         <tr>
           <th class="text-left">
-            Name
+            Author
           </th>
           <th class="text-left">
             Tweet
@@ -30,10 +51,10 @@
       </thead>
       <tbody>
         <tr
-          v-for="item in desserts"
+          v-for="item in tweets"
           :key="item.name"
         >
-          <td>{{ item.name }}</td>
+          <td>{{ item.author_id }}</td>
           <td>{{ item.text }}</td>
           <td>heart</td>
         </tr>
@@ -57,9 +78,9 @@
 
     <v-row>
       <v-col>
+        <!-- Todo: Rules -->
         <v-text-field
-          v-model="tweet"
-          :rules="tweetRules"
+          v-model="tweet_text"
           :counter="140"
           label="Your Tweet"
           required
@@ -69,11 +90,11 @@
       <v-btn
         color="primary"
         dark
-        v-bind="attrs"
-        v-on="on"
+        v-on:click="postTweet"
       >
         Tweet!
       </v-btn>
+
       </v-col>
     </v-row>
 
@@ -94,12 +115,10 @@
         v-model="dialog"
         width="500"
       >
-        <template v-slot:activator="{on, attrs }">
+      <template>
         <v-btn
           color="primary"
           dark
-          v-bind="attrs"
-          v-on="on"
         >
           Click Me
         </v-btn>
@@ -132,12 +151,26 @@
 </template>
 
 <script>
+  import axios from 'axios';
+
   export default {
-    name: 'HelloWorld',
+    name: 'Top',
 
     data () {
       return {
+        // 定数
+        APISV: "http://localhost:8081",
+        ENDPOINT_TIMELINES: "/timelines",
+        ENDPOINT_TWEET:     "/tweet",
+        ENDPOINT_SEARCH:    "/search",
+
         dialog: false,
+        info: null,
+        counter: 0,
+        id: 0,
+        username: "",
+        tweet_text: "",
+        login: false,
         desserts: [
           {
             name: 'Frozen Yogurt',
@@ -151,8 +184,57 @@
             name: 'Eclair',
             text: '262',
           },
-        ]
+        ],
+        tweets: [],
       }
+    },
+    mounted () {
+      console.log('mounted');
+      console.log(this.login);
+      if (this.$route.query.id && this.login == false) {
+        this.login = true
+        this.id = this.$route.query.id
+        this.username = this.$route.query.username
+      }
+    },
+    methods: {
+      getTimelines: function () {
+        axios
+        .get(this.APISV+this.ENDPOINT_TIMELINES, {
+            params: {
+              id: this.id
+            }
+          })
+          .then(response => {
+            this.tweets = []
+            for(var i=0;i<response.data.data.length;i++){
+              console.log(response.data.data[i])
+              this.tweets.push({"author_id":"","text":""})
+              this.tweets[i].author_id = response.data.data[i].author_id
+              this.tweets[i].text = response.data.data[i].text
+            }
+            //if (this.tweets.length == 0) {
+            //}
+            //this.tweets.push({"name":"aaa","text":"April"})
+          })
+      },
+      postTweet: function () {
+        //console.log(this.tweet_text);
+        axios
+          .post(this.APISV+this.ENDPOINT_TWEET, {
+            text: this.tweet_text
+          })
+          .then(response => {
+            console.log(response.data)
+          })
+      },
+      searchTweets: function () {
+        axios
+          .post(this.APISV+this.ENDPOINT_SEARCH)
+          .then(response => {
+            this.tweets[0].author_id = response.data.data[0].author_id
+          })
+      },
     },
   }
 </script>

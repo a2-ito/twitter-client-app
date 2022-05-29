@@ -27,7 +27,7 @@ func LoadConfig() (conf oauth2.Config) {
   conf = oauth2.Config{
     ClientID:     os.Getenv("CLIENT_ID"),
     ClientSecret: os.Getenv("CLIENT_SECRET"),
-    Scopes:       []string{"tweet.read", "tweet.write", "users.read", "follows.write"},
+    Scopes:       []string{"tweet.read", "tweet.write", "users.read", "follows.write", "like.write"},
     Endpoint: oauth2.Endpoint{
       AuthURL:  "https://twitter.com/i/oauth2/authorize",
       TokenURL: "https://api.twitter.com/2/oauth2/token",

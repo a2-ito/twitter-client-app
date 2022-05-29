@@ -12,7 +12,14 @@
 
       <v-toolbar-title>Twitter Client Application</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn text>Login</v-btn>
+
+      <v-btn
+        text
+        href="http://localhost:8081/login"
+      >
+        Login
+      </v-btn>
+
     </v-app-bar>
     <v-main>
       <router-link to="/">home</router-link>

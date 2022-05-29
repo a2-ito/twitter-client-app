@@ -19,7 +19,7 @@ type User struct {
     Username string
 }
 
-func (u *appUseCase) Callback(ctx context.Context, code string, queryState string) (result Me) {
+func (u *appUseCase) Callback(ctx context.Context, code string, queryState string) (result Me, url string) {
 
   fmt.Println("usecase Callback")
   if code == "" {
@@ -71,6 +71,9 @@ func (u *appUseCase) Callback(ctx context.Context, code string, queryState strin
   }
   fmt.Println("content: ", me)
 
-  return me
+  // Todo: 定数化
+  url = "http://localhost:8080/?id="+me.Data.Id
+
+  return me, url
 
 }

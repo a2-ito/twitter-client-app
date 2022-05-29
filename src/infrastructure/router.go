@@ -53,13 +53,18 @@ func Run() {
     e.Use(middleware.Logger())
     e.Use(middleware.Recover())
 
+    // Todo: 暫定対応 ドメイン取得後解除すること
+    e.Use(middleware.CORS())
+
     e.GET("/", handler.Hello)
     e.GET("/login", handler.Login)
     e.GET("/callback", handler.Callback)
     e.GET("/timelines", handler.Timelines)
-    e.GET("/tweet", handler.Tweet)
-    e.GET("/follow", handler.Follow)
+    e.POST("/tweet", handler.Tweet)
+    e.POST("/follow", handler.Follow)
+    e.GET("/search", handler.Search)
+    e.POST("/likes", handler.Likes)
 
     // Start server
-    e.Logger.Fatal(e.Start(":8080"))
+    e.Logger.Fatal(e.Start(":8081"))
 }
