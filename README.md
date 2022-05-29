@@ -1,5 +1,7 @@
 # twitter-client-app
 
+※まだ課題としては仕掛り中ですが、確認のため一旦 push しております。
+
 ## Overview
 
 Twitter クライアントアプリ。
@@ -43,6 +45,8 @@ Todo: ここに全体構成図を挟む
 - [ ] Frontend: 「いいね」機能実装
 - [ ] Backend: Linter
 - [ ] Backend: Formatter
+- [ ] Backend: Docker化
+- [ ] Frontend: ゴミ掃除
 - [ ] Backend: 複数ユーザ同時接続対応(トークンストア実装)
 - [ ] Backend: ログイン済みユーザの対応(再ログインを促す) ⇒おそらくキャッシュの問題
 - [ ] Backend: openapi 定義作成
@@ -50,11 +54,12 @@ Todo: ここに全体構成図を挟む
 - [ ] Backend: Authorization Code Flow 確認：チャレンジコードをブラウザ・セッションごとに変える
 - [ ] Backend: エラーハンドリング
 - [ ] Backend: ロギング
-- [ ] Frontend: フォロー機能実装
+- [ ] Frontend: ツイート検索結果に対してフォローできること
 - [ ] デプロイの方法
 - [ ] 特定のドメイン環境で稼働させる場合の対応手順
 - [ ] Backend: セッション管理
 - [ ] Backend: 流量制限
+- [ ] Backend: テストコード作成
 
 ## Components
 
