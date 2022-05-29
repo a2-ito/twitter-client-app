@@ -23,7 +23,7 @@ type Meta struct {
 }
 
 type Tweet struct {
-  Id          uint64 `json:"id"`
+  Id          string `json:"id"`
   Text        string `json:"text"`
   Created_at  string `json:"created_at"`
   Author_id   string `json:"author_id"`
@@ -31,7 +31,7 @@ type Tweet struct {
 
 func (u *appUseCase) Timelines(ctx context.Context, id string) (result Timelines) {
   fmt.Println("useCase Timelines")
-  url := "https://api.twitter.com/2/users/"+id+"/timelines/reverse_chronological?expansions=author_id&tweet.fields=conversation_id,lang&user.fields=created_at,entities&max_results=10"
+  url := "https://api.twitter.com/2/users/"+id+"/timelines/reverse_chronological?expansions=author_id&tweet.fields=conversation_id,created_at&user.fields=entities&max_results=10"
   //url := "https://api.twitter.com/2/users/"+id+"/tweets"
 
   fmt.Println("token: ", token)

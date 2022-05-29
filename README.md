@@ -37,7 +37,10 @@ Todo: ここに全体構成図を挟む
 - [x] Frontend: ログインしてユーザIDを表示
 - [x] Frontend: タイムライン参照機能
 - [x] Frontend: ツイート機能
-- [ ] Frontend: ツイートする前に確認ポップアップを出す
+- [x] Frontend: ツイートする前に確認ポップアップを出す
+- [x] Frontend: ログイン後にユーザ名を表示する
+- [x] Frontend: 「いいね」ボタンをアイコンにする
+- [ ] Frontend: 「いいね」機能実装
 - [ ] Backend: Linter
 - [ ] Backend: Formatter
 - [ ] Backend: 複数ユーザ同時接続対応(トークンストア実装)

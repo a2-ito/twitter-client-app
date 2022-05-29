@@ -32,7 +32,8 @@ type Post struct {
 
 // Follow API 用 struct
 type FollowingInfo struct {
-  Target_user_id string `json:"target_user_id"`
+  Id              string `json:"id"`
+  Target_user_id  string `json:"target_user_id"`
 }
 
 // Likes API 用 struct
@@ -121,10 +122,10 @@ func (h *appHandler) Tweet(c echo.Context) error {
   return c.String(http.StatusOK, "tweet!")
 }
 
+// Follow API
 func (h *appHandler) Follow(c echo.Context) error {
   fmt.Println("appHandler Follow")
 
-  id := c.QueryParam("id")
   var f FollowingInfo
   if err := c.Bind(&f); err != nil {
     fmt.Println(err)
@@ -134,10 +135,11 @@ func (h *appHandler) Follow(c echo.Context) error {
   if ctx == nil {
     ctx = context.Background()
   }
-  h.AppUseCase.Follow(ctx, id, f.Target_user_id)
+  h.AppUseCase.Follow(ctx, f.Id, f.Target_user_id)
   return c.String(http.StatusOK, "follow")
 }
 
+// Search API
 func (h *appHandler) Search(c echo.Context) error {
   fmt.Println("appHandler Search")
 

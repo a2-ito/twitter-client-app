@@ -15,7 +15,7 @@ type FollowingInfo struct {
 }
 
 func (u *appUseCase) Follow(ctx context.Context, id string, target_id string) error {
-  fmt.Println("useCase Follow")
+  fmt.Println("useCase Follow ", id, target_id)
   url := "https://api.twitter.com/2/users/"+id+"/following"
 
   oAuthClient := oauth2.NewClient(ctx, oauth2.StaticTokenSource(token))
