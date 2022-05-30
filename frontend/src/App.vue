@@ -22,9 +22,6 @@
 
     </v-app-bar>
     <v-main>
-      <router-link to="/">home</router-link>
-      <router-link to="/top">top</router-link>
-      <router-link to="/about">about</router-link>
       <router-view></router-view>
     </v-main>
     <v-footer color="primary" dark app>
