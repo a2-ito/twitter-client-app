@@ -193,6 +193,52 @@
         </v-btn>
       </v-col>
     </v-row>
+
+    <v-row>
+    <v-simple-table>
+      <thead>
+        <tr>
+          <th class="text-left">
+            Author
+          </th>
+          <th class="text-left">
+            Created_at
+          </th>
+          <th class="text-left">
+            Tweet
+          </th>
+          <th class="text-left">
+            Follow
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          v-for="item in search_results"
+          :key="item.author_id"
+        >
+          <td>{{ item.author_id }}</td>
+          <td>{{ item.created_at }}</td>
+          <td>{{ item.text }}</td>
+          <td>
+            <v-btn
+              class="mx-2"
+              fab
+              dark
+              small
+              color="pink"
+              @click="followUser"
+            >
+              <v-icon dark>
+                mdi-heart
+              </v-icon>
+            </v-btn>
+          </td>
+        </tr>
+      </tbody>
+    </v-simple-table>
+    </v-row>
+
   </v-container>
 </template>
 
@@ -237,6 +283,7 @@
           },
         ],
         tweets: [],
+        search_results: [],
       }
     },
     mounted () {
@@ -283,13 +330,22 @@
           })
       },
       searchTweets: function () {
+        //alert(encodeURI(this.search_text))
         axios
           .get(this.APISV+this.ENDPOINT_SEARCH, {
-            query: this.search_text
+            params: {
+              query: encodeURI(this.search_text)
+            }
           })
           .then(response => {
+            this.search_results = []
             for(var i=0;i<response.data.data.length;i++){
               console.log(response.data.data[i])
+              this.search_results.push({"id":"","author_id":"","created_at":"","text":""})
+              this.search_results[i].id = response.data.data[i].id
+              this.search_results[i].author_id = response.data.data[i].author_id
+              this.search_results[i].created_at = response.data.data[i].created_at
+              this.search_results[i].text = response.data.data[i].text
             }
           })
       },

@@ -13,7 +13,7 @@ type AppUseCase interface {
   Timelines(ctx context.Context, id string) (result Timelines)
   Tweet(ctx context.Context, tweetTest string) error
   Follow(ctx context.Context, id string, target_id string) error
-  Search(ctx context.Context, query string) error
+  Search(ctx context.Context, query string) (result Results)
   Likes(ctx context.Context, id string, tweet_id string) error
 }
 

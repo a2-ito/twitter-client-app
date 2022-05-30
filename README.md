@@ -33,7 +33,6 @@ Todo: ここに全体構成図を挟む
 - [x] Backend: タイムラインを参照する `/timelines`
 - [x] Backend: ツイートする `/tweet`
 - [x] Backend: 他のユーザをフォローする `/follow`
-- [x] Backend: ツイートを検索 `/search`
 - [ ] Backend: いいねをつける `/likes`
 - [x] Frontend: 雛形
 - [x] Frontend: ログインしてユーザIDを表示
@@ -43,6 +42,10 @@ Todo: ここに全体構成図を挟む
 - [x] Frontend: ログイン後にユーザ名を表示する
 - [x] Frontend: 「いいね」ボタンをアイコンにする
 - [ ] Frontend: 「いいね」機能実装
+- [x] Backend: ツイートを検索 `/search`
+- [ ] Backend: 日本語でツイート
+- [x] Backend: 日本語で検索
+- [ ] Frontend: ツイート検索結果に対してフォローできること
 - [ ] Backend: Linter
 - [ ] Backend: Formatter
 - [ ] Backend: Docker化
@@ -54,7 +57,6 @@ Todo: ここに全体構成図を挟む
 - [ ] Backend: Authorization Code Flow 確認：チャレンジコードをブラウザ・セッションごとに変える
 - [ ] Backend: エラーハンドリング
 - [ ] Backend: ロギング
-- [ ] Frontend: ツイート検索結果に対してフォローできること
 - [ ] デプロイの方法
 - [ ] 特定のドメイン環境で稼働させる場合の対応手順
 - [ ] Backend: セッション管理
