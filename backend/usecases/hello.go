@@ -1,11 +1,11 @@
 package usecases
 
 import (
-  "fmt"
-  "context"
+	"context"
+	"fmt"
 )
 
 func (u *appUseCase) Hello(ctx context.Context) (err error) {
-  fmt.Println("useCase Hello")
-  return nil
+	fmt.Println("useCase Hello")
+	return nil
 }

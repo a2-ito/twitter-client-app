@@ -1,10 +1,9 @@
 package main
 
 import (
-  inf "src/infrastructure"
+	inf "infrastructure"
 )
 
 func main() {
-  inf.Run()
+	inf.Run()
 }
-

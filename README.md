@@ -48,9 +48,13 @@ Todo: ここに全体構成図を挟む
 - [x] Frontend: ツイート検索結果に対してフォローできること
 - [x] Frontend: ツイート入力値 validation
 - [x] Frontend: ツイート検索入力値 validation
-- [ ] Frontend: ゴミ掃除
-- [ ] Backend: Linter
-- [ ] Backend: Formatter
+- [x] Frontend: ゴミ掃除
+- [x] Backend: ディレクトリ構成変更 (backend ディレクトリ作成)
+- [x] Backend: Formatter - gofmt
+- [ ] Backend: Linter - golangci/golangci-lint
+- [ ] Backend: Static Analysis - go vet
+- [ ] Backend: コメント追加
+- [ ] デモ動画撮影
 - [ ] Backend: Docker化
 - [ ] Backend: 複数ユーザ同時接続対応(トークンストア実装)
 - [ ] Backend: ログイン済みユーザの対応(再ログインを促す) ⇒おそらくキャッシュの問題
@@ -75,6 +79,10 @@ Todo: ここに全体構成図を挟む
 - go
 - echo
 - Docker
+
+### Utils
+- golangci-lint v1.46.2 (Docker)
+- a
 
 ## Design
 

@@ -2,10 +2,10 @@ module twitter-client-app
 
 go 1.18
 
-require src/infrastructure v0.0.0
-require src/interfaces v0.0.0
-require src/usecases v0.0.0
-require src/config v0.0.0
+require infrastructure v0.0.0
+require interfaces v0.0.0
+require usecases v0.0.0
+require config v0.0.0
 
 require (
 	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
@@ -27,7 +27,7 @@ require (
 	google.golang.org/protobuf v1.25.0 // indirect
 )
 
-replace src/infrastructure => ./src/infrastructure
-replace src/interfaces => ./src/interfaces
-replace src/usecases => ./src/usecases
-replace src/config => ./src/config
+replace infrastructure => ./infrastructure
+replace interfaces => ./interfaces
+replace usecases => ./usecases
+replace config => ./config
