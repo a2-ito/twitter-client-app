@@ -51,8 +51,8 @@ Todo: ここに全体構成図を挟む
 - [x] Frontend: ゴミ掃除
 - [x] Backend: ディレクトリ構成変更 (backend ディレクトリ作成)
 - [x] Backend: Formatter - gofmt
-- [ ] Backend: Linter - golangci/golangci-lint
-- [ ] Backend: Static Analysis - go vet
+- [x] Backend: Lint - staticcheck
+- [ ] Backend: ゴミ掃除
 - [ ] Backend: コメント追加
 - [ ] デモ動画撮影
 - [ ] Backend: Docker化

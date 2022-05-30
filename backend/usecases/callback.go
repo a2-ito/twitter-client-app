@@ -60,7 +60,6 @@ func (u *appUseCase) Callback(ctx context.Context, code string, queryState strin
 	}
 
 	defer res.Body.Close()
-	//io.Copy(os.Stdout, res.Body)
 
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
@@ -73,7 +72,8 @@ func (u *appUseCase) Callback(ctx context.Context, code string, queryState strin
 	}
 	fmt.Println("content: ", me)
 
-	// Todo: 定数化
+	// Todo: リダイレクト先の定数化
+	// Todo: クライアントへの情報のわたし方をCookieにする
 	url = "http://localhost:8080/?id=" + me.Data.Id + "&username=" + me.Data.Username
 
 	return me, url

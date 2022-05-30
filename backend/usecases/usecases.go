@@ -20,11 +20,13 @@ type AppUseCase interface {
 type appUseCase struct {
 }
 
+// Todo: ユーザごとのトークンストア実装
+// Todo: トークン期限の管理
 var conf oauth2.Config
 var codeVerifier string
 var token *oauth2.Token
 var state string
-var tokenStore map[string]string
+// var tokenStore map[string]string
 
 func NewAppUseCase() AppUseCase {
 	return &appUseCase{}

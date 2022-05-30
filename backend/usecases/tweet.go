@@ -17,6 +17,8 @@ type Post struct {
 
 func (u *appUseCase) Tweet(ctx context.Context, tweetText string) error {
 	fmt.Println("useCase Tweet")
+
+	// Todo: URL情報の定数化
 	url := "https://api.twitter.com/2/tweets"
 
 	fmt.Println("token: ", token)
@@ -35,20 +37,8 @@ func (u *appUseCase) Tweet(ctx context.Context, tweetText string) error {
 	}
 	defer res.Body.Close()
 
+        // Todo: Tweet後レスポンスコードをクライアントへ返却
 	io.Copy(os.Stdout, res.Body)
-	/*
-	  body, err := io.ReadAll(res.Body)
-	  if err != nil {
-	    fmt.Printf("failed to get me: %v\n", err)
-	  }
-
-	  var tl Timelines
-	  if err := json.Unmarshal(body, &tl); err != nil {
-	    fmt.Printf("failed to get me: %v\n", err)
-	  }
-
-	  fmt.Printf("%-v \n", tl)
-	*/
 
 	return nil
 }

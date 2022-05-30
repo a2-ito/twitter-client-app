@@ -7,7 +7,6 @@ import (
 	usecases "usecases"
 
 	"github.com/labstack/echo/v4"
-	//"github.com/a2-ito/go-onion/src/domain/model"
 )
 
 type AppHandler interface {
@@ -51,6 +50,7 @@ func (h *appHandler) NewAppUseCase() error {
 	return nil
 }
 
+// テスト用　削除可能
 func (h *appHandler) Hello(c echo.Context) error {
 	ctx := c.Request().Context()
 	if ctx == nil {
@@ -61,6 +61,8 @@ func (h *appHandler) Hello(c echo.Context) error {
 	return c.String(http.StatusOK, "Hello, World!")
 }
 
+// Login
+// 認可エンドポイントへのリダイレクト処理を返却
 func (h *appHandler) Login(c echo.Context) error {
 	fmt.Println("appHandler Login")
 
@@ -74,7 +76,7 @@ func (h *appHandler) Login(c echo.Context) error {
 }
 
 // Callback
-// フロントエンド"/"へリダイレクト
+// フロントエンドの"/"へリダイレクト
 func (h *appHandler) Callback(c echo.Context) error {
 	code := c.QueryParam("code")
 	fmt.Println("code: ", c.QueryParam("code"))
@@ -87,11 +89,12 @@ func (h *appHandler) Callback(c echo.Context) error {
 		ctx = context.Background()
 	}
 
+        // リダイレクトする際に、ユーザIDとユーザ名をクエリパラメータとして返却することでブラウザに情報を伝える
 	_, url := h.AppUseCase.Callback(ctx, code, queryState)
-	//return c.JSON(http.StatusOK, res)
 	return c.Redirect(http.StatusMovedPermanently, url)
 }
 
+// Timelines API
 func (h *appHandler) Timelines(c echo.Context) error {
 	fmt.Println("appHandler Timelines")
 
@@ -107,6 +110,7 @@ func (h *appHandler) Timelines(c echo.Context) error {
 	return c.JSON(http.StatusOK, res)
 }
 
+// Tweet API
 func (h *appHandler) Tweet(c echo.Context) error {
 	fmt.Println("appHandler Tweet")
 
@@ -154,6 +158,7 @@ func (h *appHandler) Search(c echo.Context) error {
 	return c.JSON(http.StatusOK, res)
 }
 
+// Likes API
 func (h *appHandler) Likes(c echo.Context) error {
 	fmt.Println("appHandler Likes")
 

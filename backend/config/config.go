@@ -3,24 +3,26 @@ package infrastructure
 import (
 	"fmt"
 	"os"
-
 	"golang.org/x/oauth2"
 )
 
+// LoadConfig
+// oauth config の初期化
+// .env ファイルもしくは環境変数から値を初期化
 func LoadConfig() (conf oauth2.Config) {
 
 	_, result := os.LookupEnv("CLIENT_ID")
-	if result == false {
+	if !result {
 		fmt.Println("Not found: CLIENT_ID")
 		// Todo: 5xx を返却
 	}
 	_, result = os.LookupEnv("CLIENT_SECRET")
-	if result == false {
+	if !result {
 		fmt.Println("Not found: CLIENT_SECRET")
 		// Todo: 5xx を返却
 	}
 	_, result = os.LookupEnv("REDIRECT_URL")
-	if result == false {
+	if !result {
 		fmt.Println("Not found: REDIRECT_URL")
 		// Todo: 5xx を返却
 	}

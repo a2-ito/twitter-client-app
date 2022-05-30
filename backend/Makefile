@@ -4,6 +4,8 @@ all: go-run
 
 format:
 	find . -print | grep --regex '.*\.go' | xargs goimports -w
+lint:
+	staticcheck ./...
 
 go-run:
 	go run ./main.go
@@ -32,8 +34,5 @@ stop:
 lint-prepare:
 	@echo "Installing golangci-lint" 
 	curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s latest
-
-lint:
-	./bin/golangci-lint run ./...
 
 .PHONY: clean install unittest build docker run stop vendor lint-prepare lint

@@ -32,8 +32,9 @@ type Tweet struct {
 
 func (u *appUseCase) Timelines(ctx context.Context, id string) (result Timelines) {
 	fmt.Println("useCase Timelines")
+
+	// Todo: URL情報の定数化
 	url := "https://api.twitter.com/2/users/" + id + "/timelines/reverse_chronological?expansions=author_id&tweet.fields=conversation_id,created_at&user.fields=entities&max_results=10"
-	//url := "https://api.twitter.com/2/users/"+id+"/tweets"
 
 	fmt.Println("token: ", token)
 
@@ -45,8 +46,6 @@ func (u *appUseCase) Timelines(ctx context.Context, id string) (result Timelines
 		//w.WriteHeader(http.StatusInternalServerError)
 	}
 	defer res.Body.Close()
-
-	//io.Copy(os.Stdout, res.Body)
 
 	body, err := io.ReadAll(res.Body)
 	if err != nil {

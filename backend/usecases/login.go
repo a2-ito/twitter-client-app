@@ -29,7 +29,7 @@ func getAuthURL() string {
 	hashed := h.Sum(nil)
 	codeChallenge := base64.URLEncoding.WithPadding(base64.NoPadding).EncodeToString(hashed)
 
-	// init state
+	// state は都度ランダムな文字列を生成
 	state = fmt.Sprintf("st%d", time.Now().UnixNano())
 
 	authURL := conf.AuthCodeURL(
