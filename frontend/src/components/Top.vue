@@ -183,15 +183,6 @@
         Search
       </v-btn>
       </v-col>
-      <v-col>
-        <v-btn
-          color="primary"
-          dark
-          v-on:click="followUser"
-        >
-          Follow
-        </v-btn>
-      </v-col>
     </v-row>
 
     <v-row>
@@ -227,7 +218,7 @@
               dark
               small
               color="pink"
-              @click="followUser"
+              @click="followUser(item.author_id)"
             >
               <v-icon dark>
                 mdi-heart
@@ -265,7 +256,6 @@
         username: "",
         tweet_text: "",
         target_tweet_id: "",
-        target_user_id: "2244994945",
         search_text: "",
         login: false,
         desserts: [
@@ -359,15 +349,17 @@
           })
         alert('Done!')
       },
-      followUser: function () {
+      followUser: function (author_id) {
+        //alert(author_id)
         axios
           .post(this.APISV+this.ENDPOINT_FOLLOW, {
             id: this.id,
-            target_user_id: this.target_user_id
+            target_user_id: author_id
           })
           .then(response => {
             console.log(response.data)
           })
+        alert("You followed! " + author_id)
       },
     },
   }

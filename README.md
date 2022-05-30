@@ -45,7 +45,9 @@ Todo: ここに全体構成図を挟む
 - [x] Backend: ツイートを検索 `/search`
 - [ ] Backend: 日本語でツイート
 - [x] Backend: 日本語で検索
-- [ ] Frontend: ツイート検索結果に対してフォローできること
+- [x] Frontend: ツイート検索結果に対してフォローできること
+- [ ] Frontend: ツイート入力値 validation
+- [ ] Frontend: ツイート検索入力値 validation
 - [ ] Backend: Linter
 - [ ] Backend: Formatter
 - [ ] Backend: Docker化
