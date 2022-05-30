@@ -309,35 +309,41 @@
           })
       },
       postTweet: function () {
-        this.dialog = false
-        //console.log(this.tweet_text);
-        axios
-          .post(this.APISV+this.ENDPOINT_TWEET, {
-            text: this.tweet_text
-          })
-          .then(response => {
-            console.log(response.data)
-          })
+        if(this.tweet_text.length == 0){
+          alert("Tweet text is required.")
+        }else{
+          this.dialog = false
+          axios
+            .post(this.APISV+this.ENDPOINT_TWEET, {
+              text: this.tweet_text
+            })
+            .then(response => {
+              console.log(response.data)
+            })
+        }
       },
       searchTweets: function () {
-        //alert(encodeURI(this.search_text))
-        axios
-          .get(this.APISV+this.ENDPOINT_SEARCH, {
-            params: {
-              query: encodeURI(this.search_text)
-            }
-          })
-          .then(response => {
-            this.search_results = []
-            for(var i=0;i<response.data.data.length;i++){
-              console.log(response.data.data[i])
-              this.search_results.push({"id":"","author_id":"","created_at":"","text":""})
-              this.search_results[i].id = response.data.data[i].id
-              this.search_results[i].author_id = response.data.data[i].author_id
-              this.search_results[i].created_at = response.data.data[i].created_at
-              this.search_results[i].text = response.data.data[i].text
-            }
-          })
+        if(this.search_text.length == 0){
+          alert("Search text is required.")
+        }else{
+          axios
+            .get(this.APISV+this.ENDPOINT_SEARCH, {
+              params: {
+                query: encodeURI(this.search_text)
+              }
+            })
+            .then(response => {
+              this.search_results = []
+              for(var i=0;i<response.data.data.length;i++){
+                console.log(response.data.data[i])
+                this.search_results.push({"id":"","author_id":"","created_at":"","text":""})
+                this.search_results[i].id = response.data.data[i].id
+                this.search_results[i].author_id = response.data.data[i].author_id
+                this.search_results[i].created_at = response.data.data[i].created_at
+                this.search_results[i].text = response.data.data[i].text
+              }
+            })
+        }
       },
       likeTweet: function () {
         axios

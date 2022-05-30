@@ -43,15 +43,15 @@ Todo: ここに全体構成図を挟む
 - [x] Frontend: 「いいね」ボタンをアイコンにする
 - [ ] Frontend: 「いいね」機能実装
 - [x] Backend: ツイートを検索 `/search`
-- [ ] Backend: 日本語でツイート
+- [x] Backend: 日本語でツイート
 - [x] Backend: 日本語で検索
 - [x] Frontend: ツイート検索結果に対してフォローできること
-- [ ] Frontend: ツイート入力値 validation
-- [ ] Frontend: ツイート検索入力値 validation
+- [x] Frontend: ツイート入力値 validation
+- [x] Frontend: ツイート検索入力値 validation
+- [ ] Frontend: ゴミ掃除
 - [ ] Backend: Linter
 - [ ] Backend: Formatter
 - [ ] Backend: Docker化
-- [ ] Frontend: ゴミ掃除
 - [ ] Backend: 複数ユーザ同時接続対応(トークンストア実装)
 - [ ] Backend: ログイン済みユーザの対応(再ログインを促す) ⇒おそらくキャッシュの問題
 - [ ] Backend: openapi 定義作成
