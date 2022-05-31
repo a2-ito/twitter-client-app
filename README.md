@@ -1,7 +1,5 @@
 # twitter-client-app
 
-※まだ課題としては仕掛り中ですが、確認のため一旦 push しております。
-
 ## Overview
 
 Twitter クライアントアプリ。
@@ -18,7 +16,7 @@ Twitter クライアントアプリ。
 
 ## Usage
 
-### 事前準備
+### 0. 事前準備
 
 #### ClientID/ClientSecret 取得
 
@@ -35,7 +33,7 @@ REDIRECT_URL=http://localhost:8081/callback
 
 ※上記3つの変数を export するでもOK
 
-### サーバ起動
+### 1. サーバ起動
 
 #### Option 1. docker-compose
 
@@ -53,6 +51,7 @@ docker-compose up -d
 cd backend
 make
 ```
+⇒`localhost:8081`で起動
 
 フロントエンドサーバ起動
 
@@ -61,9 +60,11 @@ cd frontend
 npm install
 npm run serve
 ```
+⇒`localhost:8080`で起動
 
-### 3. ブラウザでアプリにアクセス
+### 2. ブラウザでアプリにアクセス
 ブラウザをゲストモードで開いて、`localhost:8080`とアクセスしてください。
+（現時点では、Twitterログイン済みのブラウザでは検証していません。）
 
 ## 注意点
 
@@ -97,19 +98,19 @@ npm run serve
 #### Frontend
 - npm 7.21.0
 - node 16.8.0
-- Vue
-- Vuetify
+- Vue 2.6.11
+- Vuetify 2.6.0
 
 #### Backend
-- go v1.18
-- echo
+- go 1.18
+- echo v4.7.2
 
 #### Utils
 - docker-compose 1.29.2
 - docker 20.10.8
 - Make
 - gofmt
-- staticcheck
+- staticcheck v0.3.2
 
 ### エンドポイント
 - `GET /login`
@@ -146,13 +147,15 @@ npm run serve
   - Front/Backend コンテナイメージ化
     - クラウドへの可搬性や起動時間の高速化等の要件に応じて実施。
   - Backend: エラーハンドリング
-    - エラーを返却しユーザ側にも何が問題かを通知する
+    - エラーを返却しユーザ側にも何が問題かを通知する。
   - Front/Backend: 特定ドメイン化
-    - CORS を外す
-      - 現状はどちらも`localhost`で 8080 と 8081 でレスポンスを返却するため、API側で当該エラーがでないように設定`middleware.CORS`を設定している。同ドメイン・ポートで動くようにしてから、当該設定をはずす。
+    - CORS 許可を外す
+      - 現状はどちらも`localhost:8080` と `localhost:8081` でレスポンスを返却するため、API側で当該エラーがでないように `middleware.CORS` を設定している。本来は当該設定なしに構成すべきであり、同ドメイン・ポートで動くようにしてから当該設定をはずすこと。
     - Redirect URL 変更
+      - ドメイン設定に応じて変更する。
   - Backend: 流量制限
-  - Frontend: 静的コンテンツのエクスポート、Webサーバからの配信
+  - Frontend: 静的コンテンツのエクスポート、CDN/Webサーバからの配信
+    - 静的コンテンツとしてビルド・エクスポートし、CDN/Webサーバから配信するようにする。
 
 ## 参考：実施済みTodoリスト
 
