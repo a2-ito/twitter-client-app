@@ -113,12 +113,20 @@ npm run serve
 - staticcheck
 
 ### エンドポイント
-- `/login`
-- `/callback`
-- `/tweet`
-- `/timelines`
-- `/search`
-- `/likes`
+- `GET /login`
+  - OAuth2.0 Authorization Code Flow - 認可エンドポイントへリダイレクトする
+- `GET /callback`
+  - OAuth2.0 Authorization Code Flow - アクセストークンを取得する
+- `POST /tweet`
+  - ツイートする
+- `POST /follow`
+  - 特定のユーザをフォローする
+- `GET /timelines`
+  - 特定のユーザをフォローする
+- `GET /search`
+  - ツイートを任意の文字列で検索する
+- `POST /likes`
+  - 特定のツイートを いいね する
 
 ## 本格稼働に向けてやるべきこと
 - ドキュメンテーション
@@ -127,8 +135,6 @@ npm run serve
 - 機能系
   - Backend: 全般的にパラメータチェックを実装（必須パラメータが入力されてない場合は弾く）
   - Backend: post 系の処理において、クライアントに200を返却して正常にツイートされた、フォローできた、旨を通知する。
-  - Backend: いいねをつける `/likes`
-    - API として作ってみたが動作未確認
   - Frontend: 処理中は in-progress のUIを付ける（処理待ちなのかどうかが不明）
 - 非機能系
   - Backend: ログイン済みユーザの対応(再ログインを促す) ⇒おそらくキャッシュの問題
@@ -184,5 +190,6 @@ npm run serve
 - [x] デモ動画撮影
 - [x] Frontend: npm install 等の事前手順確認
 - [x] docker-compose 化
-- [ ] エンドポイントの説明追加
+- [x] エンドポイントの説明追加
+- [ ] Backend: いいねをつける `/likes`
 
