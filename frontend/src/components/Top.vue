@@ -67,7 +67,7 @@
               dark
               small
               color="pink"
-              @click="likeTweet"
+              @click="likeTweet(item.id)"
             >
               <v-icon dark>
                 mdi-heart
@@ -246,7 +246,7 @@
         ENDPOINT_TIMELINES: "/timelines",
         ENDPOINT_TWEET:     "/tweet",
         ENDPOINT_SEARCH:    "/search",
-        ENDPOINT_LIKE:      "/like",
+        ENDPOINT_LIKE:      "/likes",
         ENDPOINT_FOLLOW:    "/follow",
 
         dialog: false,
@@ -345,10 +345,12 @@
             })
         }
       },
-      likeTweet: function () {
+      likeTweet: function (id) {
+        //alert("are you sure? " + this.id + ' ' + id)
         axios
           .post(this.APISV+this.ENDPOINT_LIKE, {
-            tweet_id: this.target_tweet_id
+            id: this.id,
+            tweet_id: id
           })
           .then(response => {
             console.log(response.data)

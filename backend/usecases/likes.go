@@ -16,7 +16,7 @@ type Like struct {
 }
 
 func (u *appUseCase) Likes(ctx context.Context, id string, tweet_id string) error {
-	fmt.Println("useCase Likes")
+	fmt.Println("useCase Likes ", id, tweet_id)
 
 	// Todo: URL情報の定数化
 	url := "https://api.twitter.com/2/users/" + id + "/likes"

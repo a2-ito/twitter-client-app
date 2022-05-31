@@ -38,7 +38,8 @@ type FollowingInfo struct {
 
 // Likes API 用 struct
 type Like struct {
-	Tweet_id string `json:"tweet_id"`
+	Id        string `json:"id"`
+	Tweet_id  string `json:"tweet_id"`
 }
 
 func NewAppHandler() AppHandler {
@@ -162,7 +163,6 @@ func (h *appHandler) Search(c echo.Context) error {
 func (h *appHandler) Likes(c echo.Context) error {
 	fmt.Println("appHandler Likes")
 
-	id := c.QueryParam("id")
 	var l Like
 	if err := c.Bind(&l); err != nil {
 		fmt.Println(err)
@@ -172,6 +172,6 @@ func (h *appHandler) Likes(c echo.Context) error {
 	if ctx == nil {
 		ctx = context.Background()
 	}
-	h.AppUseCase.Likes(ctx, id, l.Tweet_id)
+	h.AppUseCase.Likes(ctx, l.Id, l.Tweet_id)
 	return c.String(http.StatusOK, "like!")
 }
