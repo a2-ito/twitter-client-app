@@ -16,45 +16,64 @@ Twitter クライアントアプリ。
 
 ![Animation3](https://user-images.githubusercontent.com/24238933/171014845-7219bf49-fa35-4c27-98c1-34d65fd5bea8.gif)
 
-### 1. .envファイル or 環境変数を設定
+## Usage
 
-```
-cd backend
-```
+### 事前準備
 
-`.env` を以下のように設定する。`REDIRECT_UTL` は固定。
+#### ClientID/ClientSecret 取得
+
+Twitter の [Developer POrtal](https://developer.twitter.com/) にて OAuth2.0 アプリケーションを登録し、クライアントID及びクライアントシークレットを取得する。また、Callback URL/Redirect URL を設定する。
+
+### .envファイル or 環境変数を設定
+
+次に、取得した文字列を `backend/.env` に設定する。`REDIRECT_UTL` は固定。
 ```
 CLIENT_ID=xxx
 CLIENT_SECRET=xxx
 REDIRECT_URL=http://localhost:8081/callback
 ```
 
-### 2. バックエンドサーバ起動
+※上記3つの変数を export するでもOK
+
+### サーバ起動
+
+#### Option 1. docker-compose
+
+```
+docker-compose up -d
+```
+
+上記コマンドでフロントエンド(8080)、バックエンド(8081)両方起動します。
+
+#### Option 2. 手動起動
+
+バックエンドサーバ起動
+
 ```
 cd backend
 make
 ```
 
-`localhost:8081` で起動します。
+フロントエンドサーバ起動
 
-### 3. フロントエンドサーバ起動
 ```
 cd frontend
+npm install
 npm run serve
 ```
 
-`localhost:8080` で起動します。
-
-### 4. ブラウザでアプリにアクセス
+### 3. ブラウザでアプリにアクセス
 ブラウザをゲストモードで開いて、`localhost:8080`とアクセスしてください。
 
 ## 注意点
 
-- クライアント環境（ブラウザ）のCookieやキャッシュに関する制御を実装できていないため、Chromeのゲストモードを利用して、新規ログインするケースのみ動作確認をすることができます。
+- クライアント環境（ブラウザ）のCookieやキャッシュに関する制御を実装できていないため、現時点ではChromeのゲストモードを利用して、新規ログインするケースのみ動作確認をすることができます。
 - 現時点では `localhost` 上での動作確認のみ行っています。
-  - 特定のドメインにする場合の修正箇所は[こちら]に記載しています。
-- トークン情報はクライアントに保持せず、サーバサイドのみ保持しています。現時点では複数ユーザに対応していないため、別ユーザでログインする場合はバックエンドを再起動してから再度ログインボタンを押下してください。
-- いいね機能はまだ未実装です。（ボタンはありますが反応しません。）
+  - 特定のドメインにする場合の修正箇所は[こちら](https://github.com/Kaminashi-Inc/ENG-1004_a2-ito/tree/develop#%E6%9C%AC%E6%A0%BC%E7%A8%BC%E5%83%8D%E3%81%AB%E5%90%91%E3%81%91%E3%81%A6%E3%82%84%E3%82%8B%E3%81%B9%E3%81%8D%E3%81%93%E3%81%A8)に記載しています。
+- トークン情報はクライアントに保持せず、サーバサイドのみ保持しています。ただし現時点では（サーバ側の実装の問題で）複数ユーザに対応していないため、別ユーザでログインする場合はバックエンドを再起動してから再度ログインボタンを押下してください。
+- いいね機能はまだ未実装です。（ボタンはありますが反応しません。。。）
+- Twitter API のスコープ設定は backend/config/config.go 上に埋め込んでいる。機能追加時に必要に応じて修正・外だしする。
+- 現時点ではローカル環境の構築容易性のみの観点のみで docker を利用しており、 Dockerfile は利用していない。
 
 ## Design
 
@@ -74,7 +93,11 @@ npm run serve
 
 ### Components
 
+動作確認済みのバージョンを併せて記載。
+
 #### Frontend
+- npm 7.21.0
+- node 16.8.0
 - Vue
 - Vuetify
 
@@ -83,6 +106,8 @@ npm run serve
 - echo
 
 #### Utils
+- docker-compose 1.29.2
+- docker 20.10.8
 - Make
 - gofmt
 - staticcheck
@@ -113,11 +138,16 @@ npm run serve
   - Backend: テストコード作成
   - Backend: ロギング
   - Backend: Docker化(using builcpacks)
+  - Front/Backend コンテナイメージ化
+    - クラウドへの可搬性や起動時間の高速化等の要件に応じて実施。
   - Backend: エラーハンドリング
     - エラーを返却しユーザ側にも何が問題かを通知する
-  - Backend: CORS を外す
-    - 現状はどちらも`localhost`で 8080 と 8081 でレスポンスを返却するため、API側で当該エラーがでないように設定`middleware.CORS`を設定している。同ドメイン・ポートで動くようにしてから、当該設定をはずす。
+  - Front/Backend: 特定ドメイン化
+    - CORS を外す
+      - 現状はどちらも`localhost`で 8080 と 8081 でレスポンスを返却するため、API側で当該エラーがでないように設定`middleware.CORS`を設定している。同ドメイン・ポートで動くようにしてから、当該設定をはずす。
+    - Redirect URL 変更
   - Backend: 流量制限
+  - Frontend: 静的コンテンツのエクスポート、Webサーバからの配信
 
 ## 参考：実施済みTodoリスト
 
@@ -152,4 +182,7 @@ npm run serve
 - [x] Backend: ゴミ掃除
 - [x] Backend: コメント追加
 - [x] デモ動画撮影
+- [x] Frontend: npm install 等の事前手順確認
+- [x] docker-compose 化
+- [ ] エンドポイントの説明追加
 
